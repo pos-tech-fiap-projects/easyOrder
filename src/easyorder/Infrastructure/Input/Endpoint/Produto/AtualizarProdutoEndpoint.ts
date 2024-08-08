@@ -11,68 +11,48 @@ export class AtualizarProdutoEndpoint {
     }
 
     public async handle(req: express.Request, res: express.Response): Promise<void> {
-
         /**
             #swagger.tags = ['Produtos']
             #swagger.path = '/produto/atualizar'
             #swagger.method = 'put'
-            #swagger.summary = 'Atualização de Produto'
-            #swagger.description = 'Este endpoint é utilizado para atualizar o Cadastro de um Produto, através dos dados fornecidos no corpo da requisição.'
+            #swagger.summary = 'Atualização do produto'
+            #swagger.description = 'Este endpoint é utilizado para atualizar o Cadastro de um Produto existente, através dos dados fornecidos no corpo da requisição. O id do produto é obrigatório e é usado para localizar o produto'
             #swagger.produces = ["application/json"]  
             #swagger.parameters['body'] = { 
                 in: 'body', 
                 '@schema': {  
-                    "properties": { 
-                        "nome": { 
-                            "type": "string", 
-                            "example": "X-EGG"
+                    "properties": {  
+                        id: { 
+                            type: "string", 
+                            example: "178bd1b3-83f7-45cb-95cc-a354aa6b9bbe"
                         },
-                        "descricao": { 
-                            "type": "string",
-                            "example": "Sem cebola, sem tomate"
+                        nome: { 
+                            type: "string",
+                            example: "Refrigerante"
                         },
-                        "preco": { 
-                            "type": "number",
-                            "example": "35"
+                        descricao: { 
+                            type: "string",
+                            example: "Sabor Guaraná"
                         },
-                        "categoria": { 
-                            "type": "string",
-                            "example": "Lanche"
+                        preco: {
+                            type: "number",
+                            example: 5.90
                         },
-                        "imagemURL": { 
-                            "type": "string",
-                            "example": "x-egg.jpeg"
+                        categoria: {
+                            $ref: "#/definitions/CategoriaEnum",
+                            examples: ["LANCHE", "BEBIDA", "SOBREMESA", "ACOMPANHAMENTO"]
                         },
-                        "id": { 
-                            "type": "string",
-                            "example": "0eb3a93d-df52-4f04-a463-389105328855"
+                        imagemURL: {
+                            type: "string",
+                            example: "https://example.com/imagem.jpg"
                         }
                     }
                 }
             }
-        */
+         */
         const usecase = new AtualizarProdutoUsecase(this.repository);
 
         if (req.body === undefined || Object.keys(req.body).length === 0) {
-
-            /**
-            #swagger.responses[400] = {
-                'description': 'Produto não encontrado',
-                '@schema': {
-                    'properties': {
-                    resultado_cadastro: {
-                            type: 'boolean',
-                             example: false
-                       },
-                        mensagem: {
-                            type: 'string',
-                            example: 'Produto não encontrado, id inexistente'
-                        }
-                    }
-                }
-            }
-            */
-
             res.status(400).json({
                 resultado_cadastro: false,
                 mensagem: 'Nenhum dado enviado.',
@@ -85,52 +65,42 @@ export class AtualizarProdutoEndpoint {
         const result = await usecase.execute(nome, descricao, preco, categoria, imagemURL, id);
 
         /**
-                                    #swagger.responses[200] = {
-                                        'description': 'Produto atualizado com sucesso:',
-                                        '@schema': {
-                                            'properties': {
-                                                resultado_cadastro: {
-                                                    type: 'boolean',
-                                                    example: true
-                                                },
-                                                mensagem: {
-                                                    type: 'string',
-                                                    example: 'Produto atualizado com sucesso:'
-                                                },
-                                                produto: {
-                                                    type: 'object',
-                                                    properties: {
-                                                        "id": { 
-                                                        "type": "string", 
-                                                        "example": "0eb3a93d-df52-4f04-a463-389105328855"
-                                                    },
-                                                        "nome": { 
-                                                            "type": "string",
-                                                            "example": "X-EGG"
-                                                        },
-                                                        "descricao": { 
-                                                            "type": "number",
-                                                            "example": "Com maionese e muito cheedar"
-                                                        },
-                                                        "preco": { 
-                                                            "type": "number",
-                                                            "example": "30"
-                                                        },
-                                                        "categoria": {
-                                                            "type": "string",
-                                                            "example": "Lanche"
-                                                    },
-                                                    "imagem_url": {
-                                                            "type": "string",
-                                                            "example": "x-egg.jpeg"
-                                                    }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                */
-
+            #swagger.responses[200] = {
+                description: 'Sucesso na atualização do produto',
+                schema: {
+                    type: "object",
+                    properties: {
+                        resultado_cadastro: {
+                            type: "boolean",
+                            example: true
+                        },
+                        mensagem: {
+                            type: "string",
+                            example: "Produto atualizado com sucesso."
+                        },
+                        produto: {
+                            $ref: "#/definitions/Produto"
+                        }
+                    }
+                }
+            }
+            #swagger.responses[400] = {
+                description: 'Erro na atualização do produto',
+                schema: {
+                    type: "object",
+                    properties: {
+                        resultado_cadastro: {
+                            type: "boolean",
+                            example: false
+                        },
+                        mensagem: {
+                            type: "string",
+                            example: "Algum dado está incorreto."
+                        }
+                    }
+                }
+            }
+         */
         res.json({
             resultado_cadastro: result.getSucessoCadastro(),
             mensagem: result.getMensagem(),

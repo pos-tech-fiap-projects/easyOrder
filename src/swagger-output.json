@@ -476,8 +476,8 @@
         "tags": [
           "Produtos"
         ],
-        "summary": "Atualização de Produto",
-        "description": "Este endpoint é utilizado para atualizar o Cadastro de um Produto, através dos dados fornecidos no corpo da requisição.",
+        "summary": "Atualização do produto",
+        "description": "Este endpoint é utilizado para atualizar o Cadastro de um Produto existente, através dos dados fornecidos no corpo da requisição. O id do produto é obrigatório e é usado para localizar o produto",
         "produces": [
           "application/json"
         ],
@@ -487,29 +487,34 @@
             "in": "body",
             "schema": {
               "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "178bd1b3-83f7-45cb-95cc-a354aa6b9bbe"
+                },
                 "nome": {
                   "type": "string",
-                  "example": "X-EGG"
+                  "example": "Refrigerante"
                 },
                 "descricao": {
                   "type": "string",
-                  "example": "Sem cebola, sem tomate"
+                  "example": "Sabor Guaraná"
                 },
                 "preco": {
                   "type": "number",
-                  "example": "35"
+                  "example": 5.9
                 },
                 "categoria": {
-                  "type": "string",
-                  "example": "Lanche"
+                  "$ref": "#/definitions/CategoriaEnum",
+                  "examples": [
+                    "LANCHE",
+                    "BEBIDA",
+                    "SOBREMESA",
+                    "ACOMPANHAMENTO"
+                  ]
                 },
                 "imagemURL": {
                   "type": "string",
-                  "example": "x-egg.jpeg"
-                },
-                "id": {
-                  "type": "string",
-                  "example": "0eb3a93d-df52-4f04-a463-389105328855"
+                  "example": "https://example.com/imagem.jpg"
                 }
               }
             }
@@ -517,61 +522,97 @@
         ],
         "responses": {
           "200": {
-            "description": "Produto atualizado com sucesso:",
+            "description": "Sucesso na atualização do produto",
             "schema": {
+              "type": "object",
               "properties": {
-                "resultado_cadastro": {
-                  "type": "boolean",
-                  "example": true
-                },
-                "mensagem": {
+                "type": {
                   "type": "string",
-                  "example": "Produto atualizado com sucesso:"
+                  "example": "object"
                 },
-                "produto": {
+                "properties": {
                   "type": "object",
                   "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "0eb3a93d-df52-4f04-a463-389105328855"
+                    "resultado_cadastro": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "boolean"
+                        },
+                        "example": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
                     },
-                    "nome": {
-                      "type": "string",
-                      "example": "X-EGG"
+                    "mensagem": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "example": {
+                          "type": "string",
+                          "example": "Produto atualizado com sucesso."
+                        }
+                      }
                     },
-                    "descricao": {
-                      "type": "number",
-                      "example": "Com maionese e muito cheedar"
-                    },
-                    "preco": {
-                      "type": "number",
-                      "example": "30"
-                    },
-                    "categoria": {
-                      "type": "string",
-                      "example": "Lanche"
-                    },
-                    "imagem_url": {
-                      "type": "string",
-                      "example": "x-egg.jpeg"
+                    "produto": {
+                      "$ref": "#/definitions/Produto"
                     }
                   }
                 }
+              },
+              "xml": {
+                "name": "main"
               }
             }
           },
           "400": {
-            "description": "Produto não encontrado",
+            "description": "Erro na atualização do produto",
             "schema": {
+              "type": "object",
               "properties": {
-                "resultado_cadastro": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "mensagem": {
+                "type": {
                   "type": "string",
-                  "example": "Produto não encontrado, id inexistente"
+                  "example": "object"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "resultado_cadastro": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "boolean"
+                        },
+                        "example": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    },
+                    "mensagem": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "example": {
+                          "type": "string",
+                          "example": "Algum dado está incorreto."
+                        }
+                      }
+                    }
+                  }
                 }
+              },
+              "xml": {
+                "name": "main"
               }
             }
           }
