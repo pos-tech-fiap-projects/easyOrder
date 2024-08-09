@@ -13,23 +13,18 @@ export class BuscarProdutoEndpoint {
 
     public async handle(req: express.Request, res: express.Response): Promise<void> {
         /**
+            #swagger.summary = 'Buscar produto por ID.'
+            #swagger.description = 'Endpoint para buscar um produto usando o ID.'
             #swagger.tags = ['Produtos']
             #swagger.path = '/produto/buscar/{id}'
             #swagger.method = 'get'
-            #swagger.summary = 'Buscar Produto por ID'
-            #swagger.description = 'Este endpoint é utilizado para buscar um produto pelo seu ID no sistema.'
-            #swagger.produces = ["application/json"]  
-            #swagger.parameters['body'] = { 
-                in: 'body', 
-                '@schema': { 
-                    "required": ["Id do Produto"], 
-                    "properties": { 
-                        "id": { 
-                            "type": "string", 
-                            "example": "5e73a938-41e7-4b76-a5a0-ae6147266e72"
-                        }    
-                    }
-                }
+            #swagger.produces = ["application/json"]
+            #swagger.parameters['id'] = {
+                in: 'path',
+                description: 'ID do produto',
+                required: true,
+                type: 'string',
+                example: '5e73a938-41e7-4b76-a5a0-ae6147266e72'
             }
         */
 
