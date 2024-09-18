@@ -1,6 +1,3 @@
-// TODO: REFATORAR PARA INICIALIZAÇÃO
-
-
 import express from 'express';
 import swaggerUi from "swagger-ui-express";
 import swaggerOutput from "./swagger-output.json";
@@ -8,38 +5,38 @@ import swaggerOutput from "./swagger-output.json";
 // import { ProdutoRepositoryMock } from './easyorder/Infrastructure/Output/Repository/Mock/ProdutoRepositoryMock';
 // import { ClienteRepositoryMock } from './easyorder/Infrastructure/Output/Repository/Mock/ClienteRepositoryMock';
 // import { PedidoRepositoryMock } from './easyorder/Infrastructure/Output/Repository/Mock/PedidoRepositoryMock';
-import { CategoriaRepositoryMock } from './easyorder/Infrastructure/Repository/Mock/CategoriaRepositoryMock';
+import { CategoriaRepositoryMock } from './easyorder/Infrastructure/Output/Repository/Mock/CategoriaRepositoryMock';
 
-import { PedidoRepositoryMySQL } from './easyorder/Infrastructure/Repository/PedidoRepositoryMySQL';
-import { ClienteRepositoryMySQL } from './easyorder/Infrastructure/Repository/ClienteRepositoryMySQL';
+import { PedidoRepositoryMySQL } from './easyorder/Infrastructure/Output/Repository/PedidoRepositoryMySQL';
+import { ClienteRepositoryMySQL } from './easyorder/Infrastructure/Output/Repository/ClienteRepositoryMySQL';
 
-import { CadastrarProdutoController } from './easyorder/Infrastructure/Controller/Produto/CadastrarProdutoController';
-import { RemoverProdutoController } from './easyorder/Infrastructure/Controller/Produto/RemoverProdutoController';
-import { BuscarProdutoController } from './easyorder/Infrastructure/Controller/Produto/BuscarProdutoController';
+import { CadastrarProdutoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Produto/CadastrarProdutoEndpoint';
+import { RemoverProdutoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Produto/RemoverProdutoEndpoint';
+import { BuscarProdutoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Produto/BuscarProdutoEndpoint';
 
-import { CadastrarClienteController } from './easyorder/Infrastructure/Controller/Clientes/CadastrarClienteController';
-import { AtualizarClienteController } from './easyorder/Infrastructure/Controller/Clientes/AtualizarClienteController';
-import { ListarClientesController } from './easyorder/Infrastructure/Controller/Clientes/ListarClientesController';
-import { BuscarClienteController } from './easyorder/Infrastructure/Controller/Clientes/BuscarClienteController';
+import { CadastrarClienteEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Clientes/CadastrarClienteEndpoint';
+import { AtualizarClienteEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Clientes/AtualizarClienteEndpoint';
+import { ListarClientesEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Clientes/ListarClientesEndpoint';
+import { BuscarClienteEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Clientes/BuscarClienteEndpoint';
 
-import { CadastrarPedidoController } from './easyorder/Infrastructure/Controller/Pedido/CadastrarPedidoController';
-import { CancelarPedidoController } from './easyorder/Infrastructure/Controller/Pedido/CancelarPedidoController';
-import { ListarPedidosPorStatusController } from './easyorder/Infrastructure/Controller/Pedido/ListarPedidosPorStatusController';
-import { FecharPedidoController } from './easyorder/Infrastructure/Controller/Pedido/FecharPedidoController';
-import { IniciarPreparacaoPedidoController } from './easyorder/Infrastructure/Controller/Preparacao/Pedido/IniciarPreparacaoPedidoController';
-import { FinalizarPreparacaoPedidoController } from './easyorder/Infrastructure/Controller/Preparacao/Pedido/FinalizarPreparacaoPedidoController';
-import { EntregarPedidoController } from './easyorder/Infrastructure/Controller/Preparacao/Pedido/EntregarPedidoController';
+import { CadastrarPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Pedido/CadastrarPedidoEndpoint';
+import { CancelarPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Pedido/CancelarPedidoEndpoint';
+import { ListarPedidosPorStatusEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Pedido/ListarPedidosPorStatusEndpoint';
+import { FecharPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Pedido/FecharPedidoEndpoint';
+import { IniciarPreparacaoPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Preparacao/Pedido/IniciarPreparacaoPedidoEndpoint';
+import { FinalizarPreparacaoPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Preparacao/Pedido/FinalizarPreparacaoPedidoEndpoint';
+import { EntregarPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Preparacao/Pedido/EntregarPedidoEndpoint';
 
-import { ListaCategoriasController } from './easyorder/Infrastructure/Controller/Produto/ListarCategoriasController';
-import { CheckoutPedidoController } from './easyorder/Infrastructure/Controller/Pedido/CheckoutPedidoController';
-import { ProdutoRepositoryMySQL } from './easyorder/Infrastructure/Repository/ProdutoRepositoryMySQL';
-import { AtualizarProdutoController } from './easyorder/Infrastructure/Controller/Produto/AtualizarProdutoController';
+import { ListaCategoriasEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Produto/ListarCategoriasEndpoint';
+import { CheckoutPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Pedido/CheckoutPedidoEndpoint';
+import { ProdutoRepositoryMySQL } from './easyorder/Infrastructure/Output/Repository/ProdutoRepositoryMySQL';
+import { AtualizarProdutoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Produto/AtualizarProdutoEndpoint';
 
-import { AdicionarComboAoPedidoController, AdicionarComboAoPedidoControllerParam } from './easyorder/Infrastructure/Controller/Pedido/AdicionarComboAoPedidoController';
-import { RemoverComboDoPedidoController } from './easyorder/Infrastructure/Controller/Pedido/RemoverComboDoPedidoController';
-import { BuscaProximoPedidoParaPreparacaoController } from './easyorder/Infrastructure/Controller/Preparacao/Pedido/BuscaProximoPedidoParaPreparacaoController';
-import { ListarProdutoController } from './easyorder/Infrastructure/Controller/Produto/ListarProdutoController';
-import { BuscaPedidoPorIdController } from './easyorder/Infrastructure/Controller/Pedido/BuscaPedidoPorIdController';
+import { AdicionarComboAoPedidoEndpoint, AdicionarComboAoPedidoEndpointParam } from './easyorder/Infrastructure/Input/Endpoint/Pedido/AdicionarComboAoPedidoEndpoint';
+import { RemoverComboDoPedidoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Pedido/RemoverComboDoPedidoEndpoint';
+import { BuscaProximoPedidoParaPreparacaoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Preparacao/Pedido/BuscaProximoPedidoParaPreparacaoEndpoint';
+import { ListarProdutoEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Produto/ListarProdutoEndPoint';
+import { BuscaPedidoPorIdEndpoint } from './easyorder/Infrastructure/Input/Endpoint/Pedido/BuscaPedidoPorIdEndpoint';
 
 const clienteRepository = new ClienteRepositoryMySQL(
   process.env.DATABASE_HOST || 'ERROR',
@@ -90,35 +87,35 @@ app.get('/', (req, res) => {
 });
 
 // Contexto de cliente
-app.post('/cliente/cadastrar', new CadastrarClienteController(clienteRepository).handle);
-app.put('/cliente/atualizar', new AtualizarClienteController(clienteRepository).handle);
-app.get('/cliente/listar', new ListarClientesController(clienteRepository).handle);
-app.get('/cliente/buscar/:cpf', new BuscarClienteController(clienteRepository).handle);
+app.post('/cliente/cadastrar', new CadastrarClienteEndpoint(clienteRepository).handle);
+app.put('/cliente/atualizar', new AtualizarClienteEndpoint(clienteRepository).handle);
+app.get('/cliente/listar', new ListarClientesEndpoint(clienteRepository).handle);
+app.get('/cliente/buscar/:cpf', new BuscarClienteEndpoint(clienteRepository).handle);
 
 // Contexto de produto
-app.delete('/produto/remover/:id', new RemoverProdutoController(produtoRepository).handle);
-app.get('/produto/categoria/listar', new ListaCategoriasController(categoriaRepositoryMock).handle);
-app.get('/produto/buscar/:id', new BuscarProdutoController(produtoRepository).handle);
-app.post('/produto/cadastrar', new CadastrarProdutoController(produtoRepository).handle);
-app.put('/produto/atualizar', new AtualizarProdutoController(produtoRepository).handle);
-app.get('/produto/listar', new ListarProdutoController(produtoRepository).handle);
+app.delete('/produto/remover/:id', new RemoverProdutoEndpoint(produtoRepository).handle);
+app.get('/produto/categoria/listar', new ListaCategoriasEndpoint(categoriaRepositoryMock).handle);
+app.get('/produto/buscar/:id', new BuscarProdutoEndpoint(produtoRepository).handle);
+app.post('/produto/cadastrar', new CadastrarProdutoEndpoint(produtoRepository).handle);
+app.put('/produto/atualizar', new AtualizarProdutoEndpoint(produtoRepository).handle);
+app.get('/produto/listar', new ListarProdutoEndpoint(produtoRepository).handle);
 
 // Contexto de pedido
-app.post('/pedido', new CadastrarPedidoController(pedidoRepository).handle);
-app.get('/pedido/listar/:statusPedido', new ListarPedidosPorStatusController(pedidoRepository).handle);
-app.get('/pedido/:pedidoId', new BuscaPedidoPorIdController(pedidoRepository).handle);
-app.put('/pedido/:pedidoId/cancelar', new CancelarPedidoController(pedidoRepository).handle);
-app.put('/pedido/:pedidoId/checkout', new CheckoutPedidoController(pedidoRepository).handle);
-app.put('/pedido/:pedidoId/fechar', new FecharPedidoController(pedidoRepository).handle);
-const adicionarComboAoPedidoControllerParam = new AdicionarComboAoPedidoControllerParam(pedidoRepository, produtoRepository);
-app.post('/pedido/:pedidoId/combo', new AdicionarComboAoPedidoController(adicionarComboAoPedidoControllerParam).handle);
-app.delete('/pedido/:pedidoId/combo/:comboId', new RemoverComboDoPedidoController(pedidoRepository).handle);
+app.post('/pedido', new CadastrarPedidoEndpoint(pedidoRepository).handle);
+app.get('/pedido/listar/:statusPedido', new ListarPedidosPorStatusEndpoint(pedidoRepository).handle);
+app.get('/pedido/:pedidoId', new BuscaPedidoPorIdEndpoint(pedidoRepository).handle);
+app.put('/pedido/:pedidoId/cancelar', new CancelarPedidoEndpoint(pedidoRepository).handle);
+app.put('/pedido/:pedidoId/checkout', new CheckoutPedidoEndpoint(pedidoRepository).handle);
+app.put('/pedido/:pedidoId/fechar', new FecharPedidoEndpoint(pedidoRepository).handle);
+const adicionarComboAoPedidoEndpointParam = new AdicionarComboAoPedidoEndpointParam(pedidoRepository, produtoRepository);
+app.post('/pedido/:pedidoId/combo', new AdicionarComboAoPedidoEndpoint(adicionarComboAoPedidoEndpointParam).handle);
+app.delete('/pedido/:pedidoId/combo/:comboId', new RemoverComboDoPedidoEndpoint(pedidoRepository).handle);
 
 // Contexto de preparação
-app.get('/preparacao/pedido/proximo', new BuscaProximoPedidoParaPreparacaoController(pedidoRepository).handle);
-app.put('/preparacao/pedido/:pedidoId/iniciar-preparacao', new IniciarPreparacaoPedidoController(pedidoRepository).handle);
-app.put('/preparacao/pedido/:pedidoId/finalizar-preparacao', new FinalizarPreparacaoPedidoController(pedidoRepository).handle);
-app.put('/preparacao/pedido/:pedidoId/entregar', new EntregarPedidoController(pedidoRepository).handle);
+app.get('/preparacao/pedido/proximo', new BuscaProximoPedidoParaPreparacaoEndpoint(pedidoRepository).handle);
+app.put('/preparacao/pedido/:pedidoId/iniciar-preparacao', new IniciarPreparacaoPedidoEndpoint(pedidoRepository).handle);
+app.put('/preparacao/pedido/:pedidoId/finalizar-preparacao', new FinalizarPreparacaoPedidoEndpoint(pedidoRepository).handle);
+app.put('/preparacao/pedido/:pedidoId/entregar', new EntregarPedidoEndpoint(pedidoRepository).handle);
 
 
 app.listen(port, () => {
